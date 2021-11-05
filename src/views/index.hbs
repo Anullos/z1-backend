@@ -1,0 +1,73 @@
+<div class="jumbotron mt-4">
+    <h1 class="display-4">Z1 Digital Product Studio</h1>
+    <p class="lead">Bienvenido a la prueba técnica para senior Backend-developer de Z1! <br>
+        En esta fase habrá que ejecutar un caso práctico muy parecido a los problemas que afrontamos en nuestro día a
+        día.</p>
+    <hr class="my-4">
+    <h3>¿Qué buscamos evaluar?</h3>
+    <p>- Capacidad de entender los requisitos e implementarlos correctamente. <br>
+        - Capacidad de comunicación a la hora de plantear posibles dudas y/o decisiones. <br>
+        - Calidad del código entregado; estructura y buenas prácticas (para nosotros es muy importante el clean code).
+        <br>
+        - Eficiencia de la solución entregada. <br>
+        - Familiaridad con librerías, frameworks y plataformas de desarrollo.
+    </p>
+    <h3>Caso práctico: </h3>
+    <p>EL CONTEXTO<br>
+        <br>
+        En esta prueba implementaras un muy pequeño LMS. Los requisitos son los siguientes:<br>
+        <br>
+        - El LMS se estructura en niveles, cada nivel tiene un título (Básico, Avanzado, ...) y una descripción.<br>
+        - Cada nivel tiene una serie ordenada de lecciones. Una lección posee un título y una descripción.<br>
+
+        - Cada lección tiene una serie ordenada de contenidos. Los contenidos pueden ser de distintos tipos:<br>
+        - Texto: Es el tipo de contenido más común para mostrar el texto de las lecciones. El texto debe presentar algún
+        formato para permitir incluir imágenes en el mismo.<br>
+        - Quizz: Es una serie ordenada de preguntas. Cada pregunta tiene el siguiente formato:<br>
+        <br>
+        ▪Pregunta: Texto con la pregunta.<br>
+        <br>
+        ▪Tipo: ‘simple’, ‘múltiple’, ‘libre’. Las preguntas de tipo ‘simple’ tienen una lista de posibles respuestas de
+        las que solo una es cierta. Las preguntas de tipo ‘múltiple’ tienen una lista de posibles respuestas con más de
+        una cierta. Las preguntas de tipo ‘libre’ no tienen lista de respuestas y la respuesta debe ser escrita por el
+        estudiante.<br>
+
+        ▪Posibles respuestas: Para las preguntas de tipo ‘simple’ y ‘múltiple’. Además se indicará cual o cuales son las
+        respuestas correctas.<br>
+        <br>
+        - Al LMS deben poder acceder dos tipos distintos de usuarios: ‘Profesor’ y ‘Estudiante’.<br>
+        - El profesor debe poder crear, editar y borrar todos los contenidos del LMS y además ver las respuestas de los
+        estudiantes.<br>
+        - El estudiante solo puede ver los contenidos y responder los Quizz. El sistema llevará un registro de que
+        contenidos ya ha visto un estudiante y de que respuestas ha dado a un quizz.<br>
+        - Un estudiante no puede avanzar de contenido si en un Quizz no da las respuestas correctas, pero puede
+        reintentar tantas veces como quiera.<br>
+        <br>
+        A IMPLEMENTAR<br>
+        Tendrás que implementar un API GraphQL que solucione la problemática descrita. Debes tener especial cuidado en
+        la autenticación y la autorización, de forma que un estudiante malicioso no pueda usar mutaciones o queries que
+        deberían estar restringidas a un profesor.<br>
+
+        La implementación deberás realizarla en Node.js y utilizando Typescript. Dentro de ese ecosistema puedes
+        utilizar las librerías que consideres más convenientes.<br>
+        <br>
+        A ENTREGAR<br>
+        Tanto el código como la documentación debe estar en un repositorio de control de versiones. Puedes utilizar
+        gitlab o github a tu elección.<br>
+        <br>
+        El código deberá incluir tests y un framework para ejecutarlos.También deberás incluir un README con
+        instrucciones para ejecutar el proyecto y los tests.<br>
+        <br>
+        Si encuentras algún caso no contemplado en los requisitos o algún requisito ambiguo puedes tomar la decisión que
+        consideres más correcta y documentarla junto a la documentación del proyecto.<br>
+        <br>
+        EXTRA<br>
+        Aunque no es necesario, se valorará si además se incluye un frontend que interactúe con la API GraphQL
+    </p>
+    <h3>Indicaciones</h3>
+    <p>- Crear un repositorio en GitHub o GitLab con el nombre <b>z1-backend</b><br>
+        - No hay tiempo establecido para entregar la prueba. Aun así, recomendamos emplear un máximo de una semana y
+        enviar todo lo que puedas.
+    </p>
+
+</div>

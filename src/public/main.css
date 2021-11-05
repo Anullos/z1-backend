@@ -1,0 +1,16 @@
+body {
+    /* background: #76B852; */
+    background: -webkit-linear-gradient(
+      to right,
+      #8DC26F,
+      #76B852
+    );
+    background: linear-gradient(
+      to right,
+      #8DC26F,
+      #76B852
+    );
+  }
+  .logo {
+    width: 30%;
+  }
