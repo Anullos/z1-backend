@@ -53,4 +53,5 @@ export const UPDATE_NAME = {
         const { id, name } = args;
         await UserEntity.update(id, { name: name });
     }
+    // throw new Error('Mostrando error.');
 }

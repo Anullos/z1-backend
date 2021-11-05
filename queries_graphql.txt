@@ -1,0 +1,30 @@
+
+{
+   get_all_level {
+     id
+    title
+    description
+   }
+}
+
+mutation{
+  createLevel(title:"Avanzado", description: "Segundo"){
+    id
+    title
+    description
+  }
+}
+
+mutation{
+  updateLevel(id: 2, title: "Update4", description:"Actualizado") {
+    id
+    title
+    description
+  }
+}
+
+mutation{
+  deleteLevel(id: 2) {
+    id
+  }
+}
