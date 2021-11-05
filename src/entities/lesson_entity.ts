@@ -14,6 +14,6 @@ export class LessonEntity extends BaseEntity{
     description!: string;
 
     @ManyToOne(() => LevelEntity, {nullable: false})
-    levelID!: LevelEntity;
+    level_!: LevelEntity;
 
 }

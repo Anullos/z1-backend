@@ -1,6 +1,7 @@
 import { GraphQLNonNull, GraphQLString, GraphQLID } from 'graphql';
 import { LevelType } from '../typedefs/level-type';
 import { LevelEntity } from '../../entities/level_entity';
+import { existLevel } from '../../lib/tools/checks';
 
 
 export const CREATE_LEVEL = {
@@ -10,12 +11,11 @@ export const CREATE_LEVEL = {
         description: { type: new GraphQLNonNull(GraphQLString) },
     },
     async resolve(root: any, args: any) {
-        const { title, description } = args;
         // TODO: Validate user input
+        const { title, description } = args;
         const insertLevel = await LevelEntity.insert({ title: title, description: description });
         const level = await LevelEntity.findOne({ id: insertLevel.raw.insertId });
         return level;
-
     }
 }
 
@@ -25,7 +25,9 @@ export const DELETE_LEVEL = {
         id: { type: new GraphQLNonNull(GraphQLID) }
     },
     async resolve(root: any, args: any) {
+        // TODO: Validate user input
         const { id } = args;
+        await existLevel(id);
         await LevelEntity.delete(id);
     }
 }
@@ -38,13 +40,10 @@ export const UPDATE_LEVEL = {
         description: { type: new GraphQLNonNull(GraphQLString) },
     },
     async resolve(root: any, args: any) {
+        // TODO: Validate user input
         const { id, title, description } = args;
-
-        const level = await LevelEntity.findOne({ id: id });
-        if (!level) {
-            throw new Error('Level not found');
-        }
-        const updateLevel = await LevelEntity.update(id, { title: title, description: description });
+        await existLevel(id);
+        await LevelEntity.update(id, { title: title, description: description });
         const result = await LevelEntity.findOne({ id: id });
         return result;
     }

@@ -6,6 +6,7 @@ import { GET_ALL_LESSONS } from './queries/lesson-queries';
 // Mutations
 import { CREATE_USER, DELETE_USER, UPDATE_NAME } from './mutations/user-mutations';
 import { CREATE_LEVEL, DELETE_LEVEL, UPDATE_LEVEL } from './mutations/level-mutations';
+import { CREATE_LESSON, DELETE_LESSON, UPDATE_LESSON } from './mutations/lesson-mutations';
 
 
 const rootQuery = new GraphQLObjectType({
@@ -26,6 +27,9 @@ const mutation = new GraphQLObjectType({
         createLevel: CREATE_LEVEL,
         deleteLevel: DELETE_LEVEL,
         updateLevel: UPDATE_LEVEL,
+        createLesson: CREATE_LESSON,
+        updateLesson: UPDATE_LESSON,
+        deleteLesson: DELETE_LESSON,
     }
 });
 

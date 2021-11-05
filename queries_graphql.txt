@@ -1,3 +1,4 @@
+------------ Level -----------
 
 {
    get_all_level {
@@ -25,6 +26,38 @@ mutation{
 
 mutation{
   deleteLevel(id: 2) {
+    id
+  }
+}
+
+------------ Lesson -----------
+
+{
+   get_all_lessons(id:3 ){
+    id
+    title
+    description
+   }
+}
+
+mutation{
+  createLesson(title:"Leccion 1", description: "Segundo", level_id: 3){
+    id
+    title
+    description
+  }
+}
+
+mutation{
+  updateLesson(id: 2, title: "Leccion Actualizada", description:"Actualizado") {
+    id
+    title
+    description
+  }
+}
+
+mutation{
+  deleteLesson(id: 2) {
     id
   }
 }
