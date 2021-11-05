@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { LessonEntity } from "./lesson_entity";
 
 @Entity()
 export class LevelEntity extends BaseEntity{
@@ -11,5 +12,8 @@ export class LevelEntity extends BaseEntity{
 
     @Column()
     description!: string;
+    
+    @OneToMany(type => LessonEntity, lesson => lesson.level)
+    lessons!: LessonEntity[];
 
 }

@@ -12,7 +12,7 @@ export const GET_ALL_LESSONS = {
     async resolve(root: any, args: any) {
         const { id } = args;
         await existLevel(id);
-        const result = await LessonEntity.find({ level_: id });
+        const result = await LessonEntity.findOne({ levelId: id });
         if (!result) {
             return [];
         }

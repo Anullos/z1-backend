@@ -15,7 +15,7 @@ export const CREATE_LESSON = {
         // TODO: Validate user input
         const { title, description, level_id } = args;
         await existLevel(level_id);
-        const insertLesson = await LessonEntity.insert({ title: title, description: description, level_: level_id });
+        const insertLesson = await LessonEntity.insert({ title: title, description: description, levelId: level_id });
         const lesson = await LessonEntity.findOne({ id: insertLesson.raw.insertId });
         return lesson;
 
