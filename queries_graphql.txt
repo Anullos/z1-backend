@@ -61,3 +61,32 @@ mutation{
     id
   }
 }
+
+------------ Text -----------
+
+{
+   get_all_texts(id:7 ){
+    id
+    text
+   }
+}
+
+mutation{
+  createText(text:"Texto de prueba", lesson_id: 7){
+    id
+    text
+  }
+}
+
+mutation{
+  updateText(id: 2, text: "Texto Actualizado") {
+    id
+    text
+  }
+}
+
+mutation{
+  deleteText(id: 2) {
+    id
+  }
+}

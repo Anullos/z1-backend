@@ -2,17 +2,17 @@ import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "t
 import { LessonEntity } from "./lesson_entity";
 
 @Entity()
-export class LevelEntity extends BaseEntity{
+export class LevelEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id!: number;
 
-    @Column()
+    @Column({ nullable: false })
     title!: string;
 
-    @Column()
+    @Column({ nullable: false })
     description!: string;
-    
+
     @OneToMany(type => LessonEntity, lesson => lesson.level)
     lessons!: LessonEntity[];
 

@@ -2,6 +2,7 @@ import { createConnection } from "typeorm";
 import { LevelEntity } from "./entities/level_entity";
 import { UserEntity } from './entities/user_entity';
 import { LessonEntity } from './entities/lesson_entity';
+import { TextEntity } from './entities/text_entity';
 
 
 export async function startConnection() {
@@ -14,7 +15,7 @@ export async function startConnection() {
     database: process.env.DB_DATABASE,
     logging: true,
     synchronize: false,
-    entities: [UserEntity, LevelEntity, LessonEntity],
+    entities: [UserEntity, LevelEntity, LessonEntity, TextEntity],
 }).then(() => {
     console.log('Connection to MySQL.');
 }

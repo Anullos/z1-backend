@@ -1,7 +1,6 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
 import { LessonType } from '../typedefs/lesson-type';
 import { LessonEntity } from '../../entities/lesson_entity';
-import { LevelEntity } from '../../entities/level_entity';
 import { existLevel } from '../../lib/tools/checks';
 
 export const GET_ALL_LESSONS = {
@@ -12,7 +11,12 @@ export const GET_ALL_LESSONS = {
     async resolve(root: any, args: any) {
         const { id } = args;
         await existLevel(id);
-        const result = await LessonEntity.findOne({ levelId: id });
+        const result = await LessonEntity.find({
+            relations: ['texts'],
+            where: {
+                levelId: id,
+            },
+        });
         if (!result) {
             return [];
         }

@@ -34,10 +34,18 @@ app.use(express.urlencoded({ extended: false }));
 
 
 // Routes
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', [ graphqlHTTP((req, res) => ({ // Auth middleware () => { },
     schema: schema,
     graphiql: true,
-})); // Use the graphql endpoint
+    //rootValue: {
+        // session: req.session,
+        // myapi: axios.create({
+        //     baseURL: 'https://myapi.net/api/',
+        //     timeout: 1000,
+        //     headers: { 'Authorization': req.session.access_token }
+        // })
+    //}
+}))]); // Use the graphql endpoint
 app.use("/api/v1/auth", authRoutesV1);
 app.use("/", indexWeb);
 app.use("/users", usersWeb);
