@@ -6,6 +6,7 @@ import { TextEntity } from './entities/text_entity';
 import { QuestionEntity } from './entities/question_entity';
 import { QuizEntity } from './entities/quiz_entity';
 import { ContentEntity } from './entities/content_entity';
+import { QuestionAnswersEntity } from './entities/question_answers_entity';
 
 
 export async function startConnection() {
@@ -18,7 +19,7 @@ export async function startConnection() {
         database: process.env.DB_DATABASE,
         logging: true,
         synchronize: false,
-        entities: [UserEntity, LevelEntity, LessonEntity, ContentEntity, TextEntity, QuestionEntity, QuizEntity],
+        entities: [UserEntity, LevelEntity, LessonEntity, ContentEntity, TextEntity, QuestionEntity, QuestionAnswersEntity, QuizEntity],
     }).then(() => {
         console.log('Connection to MySQL.');
     }

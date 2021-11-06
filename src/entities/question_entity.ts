@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { LessonEntity } from "./lesson_entity";
+import { QuestionAnswersEntity } from "./question_answers_entity";
 import { QuizEntity } from "./quiz_entity";
 @Entity()
 export class QuestionEntity extends BaseEntity {
@@ -14,13 +15,13 @@ export class QuestionEntity extends BaseEntity {
     type!: string;
 
     @Column({ nullable: false })
-    answers!: string;
-
-    @Column({ nullable: false })
     quizId!: number;
 
+    @OneToMany(type => QuestionAnswersEntity, questionAnswers => questionAnswers.question)
+    answers!: QuestionAnswersEntity[];
+
     @ManyToOne(type => QuizEntity, quiz => quiz.questions)
-    @JoinColumn({ name: 'lessonId', referencedColumnName: 'id' })
+    @JoinColumn({ name: 'quizId', referencedColumnName: 'id' })
     quiz!: QuizEntity;
 
 }
