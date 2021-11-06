@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ContentEntity } from "./content_entity";
 import { LessonEntity } from "./lesson_entity";
 @Entity()
 export class TextEntity extends BaseEntity {
@@ -10,10 +11,10 @@ export class TextEntity extends BaseEntity {
     text!: string;
 
     @Column({ nullable: false })
-    lessonId!: number;
+    contentId!: number;
 
-    @ManyToOne(type => LessonEntity, lesson => lesson.texts)
-    @JoinColumn({ name: 'lessonId', referencedColumnName: 'id' })
-    lesson!: LessonEntity;
+    @OneToOne(type => ContentEntity, content => content.text)
+    @JoinColumn({ name: 'contentId', referencedColumnName: 'id' })
+    content!: ContentEntity;
 
 }

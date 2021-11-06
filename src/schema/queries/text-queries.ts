@@ -11,7 +11,7 @@ export const GET_ALL_TEXTS = {
     async resolve(root: any, args: any) {
         const { id } = args;
         await existLesson(id);
-        const result = await TextEntity.find({ lessonId: id });
+        const result = await TextEntity.find({ contentId: id });
         if (!result) {
             return [];
         }

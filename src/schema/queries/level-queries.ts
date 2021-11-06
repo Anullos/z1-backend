@@ -6,7 +6,7 @@ export const GET_ALL_LEVELS = {
     type: new GraphQLList(LevelType),
     async resolve() {
         const result = await LevelEntity.find({
-            relations: ['lessons', 'lessons.texts'],
+            relations: ['lessons', 'lessons.contents.texts'],
         }
         );
         if (!result) {

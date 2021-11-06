@@ -1,5 +1,7 @@
 import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { ContentEntity } from "./content_entity";
 import { LevelEntity } from './level_entity';
+import { QuizEntity } from "./quiz_entity";
 import { TextEntity } from "./text_entity";
 
 @Entity()
@@ -21,8 +23,9 @@ export class LessonEntity extends BaseEntity {
     @JoinColumn({ name: 'levelId', referencedColumnName: 'id' })
     level!: LevelEntity;
 
-    @OneToMany(type => TextEntity, text => text.lesson)
-    texts!: TextEntity[];
+    @OneToMany(type => ContentEntity, content => content.lesson)
+    contents!: ContentEntity[];
+
 
 }
 

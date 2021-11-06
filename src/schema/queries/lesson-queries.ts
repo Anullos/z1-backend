@@ -12,7 +12,7 @@ export const GET_ALL_LESSONS = {
         const { id } = args;
         await existLevel(id);
         const result = await LessonEntity.find({
-            relations: ['texts'],
+            relations: ['contents.texts'],
             where: {
                 levelId: id,
             },

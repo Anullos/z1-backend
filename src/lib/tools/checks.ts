@@ -1,3 +1,4 @@
+import { ContentEntity } from '../../entities/content_entity';
 import { LessonEntity } from '../../entities/lesson_entity';
 import { LevelEntity } from '../../entities/level_entity';
 import { TextEntity } from '../../entities/text_entity';
@@ -15,6 +16,14 @@ export async function existLesson(id: number): Promise<LessonEntity> {
     const result = await LessonEntity.findOne({ id: id });
     if (!result) {
         throw new Error('Lesson not found');
+    }
+    return result;
+}
+
+export async function existContent(id: number): Promise<ContentEntity> {
+    const result = await ContentEntity.findOne({ id: id });
+    if (!result) {
+        throw new Error('Content not found');
     }
     return result;
 }
