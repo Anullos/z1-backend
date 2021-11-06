@@ -1,5 +1,5 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } from "graphql";
-import { TextType } from './text-type';
+import { ContentType } from './content-type';
 
 export const LessonType = new GraphQLObjectType({
     name: "Lesson",
@@ -7,6 +7,6 @@ export const LessonType = new GraphQLObjectType({
         id: { type: GraphQLID },
         title: { type: GraphQLString },
         description: { type: GraphQLString },
-        texts: { type: new GraphQLList(TextType) }
+        contents: { type: new GraphQLList(ContentType) }
     })
 });

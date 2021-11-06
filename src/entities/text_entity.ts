@@ -1,6 +1,6 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ContentEntity } from "./content_entity";
-import { LessonEntity } from "./lesson_entity";
+
 @Entity()
 export class TextEntity extends BaseEntity {
 

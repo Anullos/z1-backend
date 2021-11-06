@@ -1,7 +1,8 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { LessonEntity } from "./lesson_entity";
 import { QuizEntity } from "./quiz_entity";
 import { TextEntity } from "./text_entity";
+
 @Entity()
 export class ContentEntity extends BaseEntity {
 

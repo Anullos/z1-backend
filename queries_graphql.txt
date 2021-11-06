@@ -5,6 +5,18 @@
      id
     title
     description
+    lessons{
+      id
+      title
+			description
+      contents{
+        id
+        texts{
+          id
+          text
+        }
+      }
+    }
    }
 }
 
