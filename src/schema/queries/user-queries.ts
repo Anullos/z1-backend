@@ -2,16 +2,18 @@ import { UserType } from '../typedefs/user-type';
 import { GraphQLList } from 'graphql';
 import { UserEntity } from '../../entities/user_entity';
 import { UserModel } from '../../models/user-model';
+import { existUser } from '../../lib/tools/checks';
+import { isProfesor } from '../../lib/tools/security';
 
 export const GET_ALL_USERS = {
     type: new GraphQLList(UserType),
     async resolve(req: any) {
+        const { user_id } = req;
+        const userId = parseInt(user_id);
+        const userReq = await existUser(userId);
+        isProfesor(userReq.role);
         const users = await UserEntity.find();
         var usersArray: UserModel[] = [];
-
-        const { user_id } = req;
-        const id = parseInt(user_id);
-        const userReq = await UserEntity.findOne({ id: id });
         for (var i = 0; i < users.length; i++) {
             var texto = users[i].created_at.toString();
             console.log(texto);

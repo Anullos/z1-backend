@@ -8,7 +8,7 @@ export const GET_ALL_TEXTS = {
     args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
     },
-    async resolve(root: any, args: any) {
+    async resolve(req: any, args: any) {
         const { id } = args;
         await existLesson(id);
         const result = await TextEntity.find({ contentId: id });

@@ -8,7 +8,7 @@ export const GET_ALL_LESSONS = {
     args: {
         id: { type: new GraphQLNonNull(GraphQLID) },
     },
-    async resolve(root: any, args: any) {
+    async resolve(req: any, args: any) {
         const { id } = args;
         await existLevel(id);
         const result = await LessonEntity.find({

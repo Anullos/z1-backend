@@ -5,7 +5,7 @@ import { GET_ALL_LEVELS } from './queries/level-queries';
 import { GET_ALL_LESSONS } from './queries/lesson-queries';
 import { GET_ALL_TEXTS } from './queries/text-queries';
 // Mutations
-import { CREATE_USER, DELETE_USER, UPDATE_NAME } from './mutations/user-mutations';
+import { DELETE_USER } from './mutations/user-mutations';
 import { CREATE_LEVEL, DELETE_LEVEL, UPDATE_LEVEL } from './mutations/level-mutations';
 import { CREATE_LESSON, DELETE_LESSON, UPDATE_LESSON } from './mutations/lesson-mutations';
 import { CREATE_TEXT, DELETE_TEXT, UPDATE_TEXT } from './mutations/text-mutations';
@@ -24,9 +24,7 @@ const rootQuery = new GraphQLObjectType({
 const mutation = new GraphQLObjectType({
     name: 'Mutation',
     fields: {
-        createUser: CREATE_USER,
         deleteUser: DELETE_USER,
-        updateName: UPDATE_NAME,
         createLevel: CREATE_LEVEL,
         deleteLevel: DELETE_LEVEL,
         updateLevel: UPDATE_LEVEL,

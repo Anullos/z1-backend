@@ -7,7 +7,6 @@ import path from 'path';
 // Import Routes
 import authRoutesV1 from './routes/api/v1/auth-routes';
 import indexWeb from './routes/web/index';
-import usersWeb from './routes/web/users';
 
 // Import SchemaGraphql
 import { schema } from './schema/index';
@@ -61,7 +60,6 @@ app.use('/graphql', [isAuth, graphqlHTTP((req, res) => ({ // Auth middleware () 
 }))]); // Use the graphql endpoint
 app.use("/api/v1/auth", authRoutesV1);
 app.use("/", indexWeb);
-app.use("/users", usersWeb);
 
 
 // Static files
