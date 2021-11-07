@@ -11,9 +11,19 @@ import usersWeb from './routes/web/users';
 
 // Import SchemaGraphql
 import { schema } from './schema/index';
+import { isAuth } from './middlewares/auth';
 
 // Initialize express
 const app: Application = express();
+
+// Configure express
+declare global {
+    namespace Express {
+        export interface Request {
+            user_id: any;
+        }
+    }
+}
 
 
 // Settings
@@ -34,17 +44,20 @@ app.use(express.urlencoded({ extended: false }));
 
 
 // Routes
-app.use('/graphql', [ graphqlHTTP((req, res) => ({ // Auth middleware () => { },
+app.use('/graphql', [isAuth, graphqlHTTP((req, res) => ({ // Auth middleware () => { },
     schema: schema,
     graphiql: true,
     //rootValue: {
-        // session: req.session,
-        // myapi: axios.create({
-        //     baseURL: 'https://myapi.net/api/',
-        //     timeout: 1000,
-        //     headers: { 'Authorization': req.session.access_token }
-        // })
+    // session: req.session,
+    // myapi: axios.create({
+    //     baseURL: 'https://myapi.net/api/',
+    //     timeout: 1000,
+    //     headers: { 'Authorization': req.session.access_token }å
+    // })
     //}
+    rootValue: {
+        user_id: req.headers.user_id,
+    }
 }))]); // Use the graphql endpoint
 app.use("/api/v1/auth", authRoutesV1);
 app.use("/", indexWeb);

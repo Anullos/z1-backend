@@ -5,9 +5,13 @@ import { UserModel } from '../../models/user-model';
 
 export const GET_ALL_USERS = {
     type: new GraphQLList(UserType),
-    async resolve() {
+    async resolve(req: any) {
         const users = await UserEntity.find();
         var usersArray: UserModel[] = [];
+
+        const { user_id } = req;
+        const id = parseInt(user_id);
+        const userReq = await UserEntity.findOne({ id: id });
         for (var i = 0; i < users.length; i++) {
             var texto = users[i].created_at.toString();
             console.log(texto);

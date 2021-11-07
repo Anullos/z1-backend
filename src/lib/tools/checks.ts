@@ -2,7 +2,16 @@ import { ContentEntity } from '../../entities/content_entity';
 import { LessonEntity } from '../../entities/lesson_entity';
 import { LevelEntity } from '../../entities/level_entity';
 import { TextEntity } from '../../entities/text_entity';
+import { UserEntity } from '../../entities/user_entity';
 
+
+export async function existUser(id: number): Promise<UserEntity> {
+    const result = await UserEntity.findOne({ id: id });
+    if (!result) {
+        throw new Error('User not found');
+    }
+    return result;
+}
 
 export async function existLevel(id: number): Promise<LevelEntity> {
     const result = await LevelEntity.findOne({ id: id });
