@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { ContentEntity } from "./content_entity";
 import { UserEntity } from './user_entity';
 
@@ -17,11 +17,11 @@ export class ContentLogUserEntity extends BaseEntity {
     @Column("simple-array", { nullable: false })
     answersUser!: string[];
 
-    @OneToOne(type => ContentEntity, content => content.quiz, { onDelete: 'CASCADE' })
+    @OneToOne(type => ContentEntity, content => content.logs, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'contentId', referencedColumnName: 'id' })
     content!: ContentEntity;
 
-    @OneToOne(type => UserEntity, user => user.logs, { onDelete: 'CASCADE' })
+    @ManyToOne(type => UserEntity, user => user.logs, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
     user!: UserEntity;
 

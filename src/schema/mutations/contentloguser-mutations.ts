@@ -18,35 +18,35 @@ export const CREATE_CONTENTLOGUSER = {
         isEstudiante(userReq.role);
         const { contentId, answersUser } = args;
         await existContent(contentId);
-        const content_quiz = await ContentEntity.find({ relations: ['quiz', 'quiz.questions', 'quiz.questions.answers'], where: { id: contentId } });
-        const questions = content_quiz[0].quiz.questions;
-        // Check if the number of correct answers is the same as the answers from user
-        var counter = 0;
-        var answer_correct = 0;
-        for (const question of questions) {
-            if (question.type != 'Libre') {
-                for (const answer of question.answers) {
-                    const correct = answer.answer.includes('*');
-                    if (correct == true) {
-                        counter++;
-                    }
-                    const answerCorrect = answer.answer.slice(1);
-                    console.log(answerCorrect);
-                    for (const answerUser of answersUser) {
-                        if (answerUser == answerCorrect) {
-                            answer_correct++;
-
+        const content_quiz = await ContentEntity.find({ relations: ['text', 'quiz', 'quiz.questions', 'quiz.questions.answers'], where: { id: contentId } });
+        if (content_quiz[0].quiz != null) {
+            const questions = content_quiz[0].quiz.questions;
+            // Check if the number of correct answers is the same as the answers from user
+            var counter = 0;
+            var answer_correct = 0;
+            for (const question of questions) {
+                if (question.type != 'Libre') {
+                    for (const answer of question.answers) {
+                        const correct = answer.answer.includes('*');
+                        if (correct == true) {
+                            counter++;
+                        }
+                        const answerCorrect = answer.answer.slice(1);
+                        console.log(answerCorrect);
+                        for (const answerUser of answersUser) {
+                            if (answerUser == answerCorrect) {
+                                answer_correct++;
+                            }
                         }
                     }
                 }
             }
-
-        }
-        if (counter != answer_correct) {
-            throw new Error('The number of correct answers is not the same as the answers from user, please try again');
+            if (counter != answer_correct) {
+                throw new Error('The number of correct answers is not the same as the answers from user, please try again');
+            }
         }
         const insertContentLog = await ContentLogUserEntity.insert({ contentId: contentId, userId: idParse, answersUser: answersUser });
-        const result = await ContentLogUserEntity.findOne({ relations: ['content', 'user'], where: { id: insertContentLog.raw.insertId } });
+        const result = await ContentLogUserEntity.findOne({ relations: ['user', 'content','content.text', 'content.quiz', 'content.quiz.questions', 'content.quiz.questions.answers'], where: { id: insertContentLog.raw.insertId } });
         return result;
     }
 }

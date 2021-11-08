@@ -1,13 +1,13 @@
 import { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLList } from "graphql";
 import { ContentType } from './content-type';
-import { UserType } from './user-type';
+import { UserType2 } from './user-type';
 
 export const ContentLogUserType = new GraphQLObjectType({
     name: "ContentLogUser",
     fields: () => ({
         id: { type: GraphQLID },
         content: { type: ContentType },
-        user: { type: UserType },
+        user: { type: UserType2 },
         answersUser: { type: new GraphQLList(GraphQLString) }
     })
 });
