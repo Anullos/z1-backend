@@ -14,7 +14,15 @@ export const QuestionType = new GraphQLObjectType({
         id: { type: GraphQLID },
         question: { type: GraphQLString },
         type: { type: GraphQLString },
-        answers: { type: new GraphQLList(GraphQLString) }
+        answers: { type: new GraphQLList(AnswersType) }
+    })
+});
+
+export const AnswersType = new GraphQLObjectType({
+    name: "Answers",
+    fields: () => ({
+        id: { type: GraphQLID },
+        answer: { type: GraphQLString }
     })
 });
 
