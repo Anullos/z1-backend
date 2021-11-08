@@ -1,4 +1,4 @@
-import { GraphQLObjectType, GraphQLID, GraphQLList, GraphQLString } from "graphql";
+import { GraphQLObjectType, GraphQLID, GraphQLList, GraphQLString, GraphQLInputObjectType } from "graphql";
 
 export const QuizType = new GraphQLObjectType({
     name: "Quiz",
@@ -10,6 +10,16 @@ export const QuizType = new GraphQLObjectType({
 
 export const QuestionType = new GraphQLObjectType({
     name: "Question",
+    fields: () => ({
+        id: { type: GraphQLID },
+        question: { type: GraphQLString },
+        type: { type: GraphQLString },
+        answers: { type: new GraphQLList(GraphQLString) }
+    })
+});
+
+export const QuestionInputType = new GraphQLInputObjectType({
+    name: "QuestionInput",
     fields: () => ({
         id: { type: GraphQLID },
         question: { type: GraphQLString },

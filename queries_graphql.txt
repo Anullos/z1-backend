@@ -102,3 +102,47 @@ mutation{
     id
   }
 }
+
+------------ Quiz -----------
+
+{
+   get_quiz(id:7 ){
+    id
+    quiz
+   }
+}
+
+mutation{
+  createQuiz(lesson_id: 7, questions: [
+    {
+      question:"Como se usa esto?",
+      type:"Simple",
+      answers: ["solo una", "documentandose", "preguntando"],
+    }
+  ]){
+    id
+		quiz{
+      id
+      questions{
+        id
+        question
+        type
+      }
+    }
+  }
+}
+
+mutation{
+  updateQuiz(id: 2, text: "Texto Actualizado") {
+    id
+    text
+  }
+}
+
+mutation{
+  deleteQuiz(id: 2) {
+    id
+  }
+}
+
+

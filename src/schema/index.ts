@@ -9,6 +9,8 @@ import { DELETE_USER } from './mutations/user-mutations';
 import { CREATE_LEVEL, DELETE_LEVEL, UPDATE_LEVEL } from './mutations/level-mutations';
 import { CREATE_LESSON, DELETE_LESSON, UPDATE_LESSON } from './mutations/lesson-mutations';
 import { CREATE_TEXT, DELETE_TEXT, UPDATE_TEXT } from './mutations/text-mutations';
+import { GET_QUIZ } from './queries/quiz-queries';
+import { CREATE_QUIZ, DELETE_QUIZ, UPDATE_QUIZ } from './mutations/quiz-mutations';
 
 
 const rootQuery = new GraphQLObjectType({
@@ -18,6 +20,7 @@ const rootQuery = new GraphQLObjectType({
         get_all_level: GET_ALL_LEVELS,
         get_all_lessons: GET_ALL_LESSONS,
         get_all_texts: GET_ALL_TEXTS,
+        get_quiz: GET_QUIZ,
     }
 });
 
@@ -34,6 +37,10 @@ const mutation = new GraphQLObjectType({
         createText: CREATE_TEXT,
         updateText: UPDATE_TEXT,
         deleteText: DELETE_TEXT,
+        createQuiz: CREATE_QUIZ,
+        updateQuiz: UPDATE_QUIZ,
+        deleteQuiz: DELETE_QUIZ,
+        
     }
 });
 

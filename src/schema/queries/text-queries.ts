@@ -1,17 +1,17 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
 import { existLesson } from '../../lib/tools/checks';
-import { TextEntity } from '../../entities/text_entity';
-import { TextType } from '../typedefs/text-type';
+import { ContentEntity } from '../../entities/content_entity';
+import { ContentType } from '../typedefs/content-type';
 
 export const GET_ALL_TEXTS = {
-    type: new GraphQLList(TextType),
+    type: new GraphQLList(ContentType),
     args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        lesson_id: { type: new GraphQLNonNull(GraphQLID) },
     },
     async resolve(req: any, args: any) {
-        const { id } = args;
-        await existLesson(id);
-        const result = await TextEntity.find({ contentId: id });
+        const { lesson_id } = args;
+        await existLesson(lesson_id);
+        const result = await ContentEntity.find({ relations: ['text'], where: { lessonId: lesson_id } });
         if (!result) {
             return [];
         }

@@ -1,6 +1,7 @@
 import { ContentEntity } from '../../entities/content_entity';
 import { LessonEntity } from '../../entities/lesson_entity';
 import { LevelEntity } from '../../entities/level_entity';
+import { QuizEntity } from '../../entities/quiz_entity';
 import { TextEntity } from '../../entities/text_entity';
 import { UserEntity } from '../../entities/user_entity';
 
@@ -41,6 +42,14 @@ export async function existText(id: number): Promise<TextEntity> {
     const result = await TextEntity.findOne({ id: id });
     if (!result) {
         throw new Error('Text not found');
+    }
+    return result;
+}
+
+export async function existQuiz(id: number): Promise<QuizEntity> {
+    const result = await QuizEntity.findOne({ id: id });
+    if (!result) {
+        throw new Error('Quiz not found');
     }
     return result;
 }

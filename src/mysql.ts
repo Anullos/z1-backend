@@ -19,7 +19,7 @@ export async function startConnection() {
         database: process.env.DB_DATABASE,
         logging: true,
         synchronize: false,
-        entities: [UserEntity, LevelEntity, LessonEntity, ContentEntity, TextEntity, QuestionEntity, QuestionAnswersEntity, QuizEntity],
+        entities: [UserEntity, LevelEntity, LessonEntity, ContentEntity, TextEntity, QuizEntity, QuestionEntity, QuestionAnswersEntity ],
     }).then(() => {
         console.log('Connection to MySQL.');
     }

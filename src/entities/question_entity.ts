@@ -16,12 +16,12 @@ export class QuestionEntity extends BaseEntity {
 
     @Column({ nullable: false })
     quizId!: number;
-
-    @OneToMany(type => QuestionAnswersEntity, questionAnswers => questionAnswers.question)
-    answers!: QuestionAnswersEntity[];
-
+    
     @ManyToOne(type => QuizEntity, quiz => quiz.questions)
     @JoinColumn({ name: 'quizId', referencedColumnName: 'id' })
     quiz!: QuizEntity;
+
+    @OneToMany(type => QuestionAnswersEntity, questionAnswers => questionAnswers.question)
+    answers!: QuestionAnswersEntity[];
 
 }
