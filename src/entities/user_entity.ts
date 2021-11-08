@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ContentLogUserEntity } from "./content_log_user";
 
 @Entity()
 export class UserEntity extends BaseEntity {
@@ -23,5 +24,8 @@ export class UserEntity extends BaseEntity {
 
     @Column({ nullable: false })
     updated_at!: Date;
+
+    @OneToOne(type => ContentLogUserEntity, contentlog => contentlog.user, { onDelete: 'CASCADE' })
+    logs!: ContentLogUserEntity[];
 
 }

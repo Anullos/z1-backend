@@ -2,6 +2,7 @@ import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGen
 import { LessonEntity } from "./lesson_entity";
 import { QuizEntity } from "./quiz_entity";
 import { TextEntity } from "./text_entity";
+import { ContentLogUserEntity } from './content_log_user';
 
 @Entity()
 export class ContentEntity extends BaseEntity {
@@ -22,6 +23,7 @@ export class ContentEntity extends BaseEntity {
     @OneToOne(type => QuizEntity, quiz => quiz.content, { onDelete: 'CASCADE' })
     quiz!: QuizEntity;
 
-
+    @OneToOne(type => ContentLogUserEntity, contentlog => contentlog.content, { onDelete: 'CASCADE' })
+    logs!: ContentLogUserEntity[];
 
 }

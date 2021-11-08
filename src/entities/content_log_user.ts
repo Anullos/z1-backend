@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { ContentEntity } from "./content_entity";
+import { UserEntity } from './user_entity';
 
 @Entity()
 export class ContentLogUserEntity extends BaseEntity {
@@ -12,8 +14,15 @@ export class ContentLogUserEntity extends BaseEntity {
     @Column({ nullable: false })
     userId!: number;
 
-    @Column({ nullable: false })
-    answersUser!: string;
+    @Column("simple-array", { nullable: false })
+    answersUser!: string[];
 
+    @OneToOne(type => ContentEntity, content => content.quiz, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'contentId', referencedColumnName: 'id' })
+    content!: ContentEntity;
+
+    @OneToOne(type => UserEntity, user => user.logs, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
+    user!: UserEntity;
 
 }

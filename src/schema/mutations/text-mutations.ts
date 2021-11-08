@@ -6,7 +6,6 @@ import { ContentEntity } from '../../entities/content_entity';
 import { isProfesor } from '../../lib/tools/security';
 import { ContentType } from '../typedefs/content-type';
 
-
 export const CREATE_TEXT = {
     type: ContentType,
     args: {

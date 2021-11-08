@@ -140,7 +140,7 @@ mutation{
 }
 
 mutation{
-  deleteQuiz(id: 2) {
+  deleteQuiz(quizId: 2) {
     id
   }
 }

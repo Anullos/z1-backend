@@ -1,14 +1,12 @@
-import { GraphQLNonNull, GraphQLString, GraphQLID, GraphQLList } from 'graphql';
-import { existContent, existLesson, existQuiz, existText, existUser } from '../../lib/tools/checks';
-import { TextEntity } from '../../entities/text_entity';
+import { GraphQLNonNull, GraphQLID, GraphQLList } from 'graphql';
+import { existLesson, existQuiz, existUser } from '../../lib/tools/checks';
 import { ContentEntity } from '../../entities/content_entity';
 import { isProfesor } from '../../lib/tools/security';
-import { QuizType, QuestionType, QuestionInputType } from '../typedefs/quiz-type';
+import { QuizType, QuestionInputType } from '../typedefs/quiz-type';
 import { QuizEntity } from '../../entities/quiz_entity';
 import { QuestionEntity } from '../../entities/question_entity';
 import { QuestionAnswersEntity } from '../../entities/question_answers_entity';
 import { ContentType } from '../typedefs/content-type';
-import { TextType } from '../typedefs/text-type';
 
 
 
