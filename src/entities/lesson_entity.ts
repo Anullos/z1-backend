@@ -17,11 +17,11 @@ export class LessonEntity extends BaseEntity {
     @Column({ nullable: false })
     levelId!: number;
 
-    @ManyToOne(type => LevelEntity, level => level.lessons)
+    @ManyToOne(type => LevelEntity, level => level.lessons, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'levelId', referencedColumnName: 'id' })
     level!: LevelEntity;
 
-    @OneToMany(type => ContentEntity, content => content.lesson)
+    @OneToMany(type => ContentEntity, content => content.lesson, { onDelete: 'CASCADE' })
     contents!: ContentEntity[];
 
 }

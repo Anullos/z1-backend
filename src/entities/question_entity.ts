@@ -17,11 +17,11 @@ export class QuestionEntity extends BaseEntity {
     @Column({ nullable: false })
     quizId!: number;
     
-    @ManyToOne(type => QuizEntity, quiz => quiz.questions)
+    @ManyToOne(type => QuizEntity, quiz => quiz.questions, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'quizId', referencedColumnName: 'id' })
     quiz!: QuizEntity;
 
-    @OneToMany(type => QuestionAnswersEntity, questionAnswers => questionAnswers.question)
+    @OneToMany(type => QuestionAnswersEntity, questionAnswers => questionAnswers.question, { onDelete: 'CASCADE' })
     answers!: QuestionAnswersEntity[];
 
 }

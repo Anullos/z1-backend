@@ -11,11 +11,11 @@ export class QuizEntity extends BaseEntity {
     @Column({ nullable: false })
     contentId!: number;
 
-    @OneToOne(type => ContentEntity, content => content.quiz)
+    @OneToOne(type => ContentEntity, content => content.quiz, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'contentId', referencedColumnName: 'id' })
     content!: ContentEntity;
 
-    @OneToMany(type => QuestionEntity, question => question.quiz)
+    @OneToMany(type => QuestionEntity, question => question.quiz, { onDelete: 'CASCADE' })
     questions!: QuestionEntity[];
 
 }

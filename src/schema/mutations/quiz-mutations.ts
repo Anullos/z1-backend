@@ -1,5 +1,5 @@
 import { GraphQLNonNull, GraphQLString, GraphQLID, GraphQLList } from 'graphql';
-import { existLesson, existText, existUser } from '../../lib/tools/checks';
+import { existContent, existLesson, existQuiz, existText, existUser } from '../../lib/tools/checks';
 import { TextEntity } from '../../entities/text_entity';
 import { ContentEntity } from '../../entities/content_entity';
 import { isProfesor } from '../../lib/tools/security';
@@ -27,14 +27,20 @@ export const CREATE_QUIZ = {
         const { lesson_id, questions } = args;
         await existLesson(lesson_id);
         const insertContent = await ContentEntity.insert({ lessonId: lesson_id });
-        const result = await ContentEntity.find({ relations: ['quiz', 'quiz.questions'], where: { id: insertContent.raw.insertId } });
         const insert = await QuizEntity.insert({ contentId: insertContent.raw.insertId });
         for (const question of questions) {
+            if (question.type !== "Simple" && question.type !== "Multiple" && question.type !== "Libre") {
+                throw new Error("Invalid question type, must to be: Simple, Multiple or Libre");
+            }
+            if (question.type === "Libre" && question.answers.length > 0) {
+                throw new Error("Type Libre must to be empty answers");
+            }
             const insertQuestion = await QuestionEntity.insert({ quizId: insert.raw.insertId, question: question.question, type: question.type });
             for (const answer of question.answers) {
                 await QuestionAnswersEntity.insert({ questionId: insertQuestion.raw.insertId, answer: answer });
             }
         }
+        const result = await ContentEntity.findOne({ relations: ['quiz', 'quiz.questions', 'quiz.questions.answers'], where: { id: insertContent.raw.insertId } });
         return result;
     }
 }
@@ -42,35 +48,34 @@ export const CREATE_QUIZ = {
 export const DELETE_QUIZ = {
     type: QuizType,
     args: {
-        id: { type: new GraphQLNonNull(GraphQLID) }
+        quizId: { type: new GraphQLNonNull(GraphQLID) }
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { id } = args;
-        const text = await existText(id);
-        await TextEntity.delete(id);
-        await ContentEntity.delete(text.contentId);
+        const { quizId } = args;
+        const quiz = await existQuiz(quizId);
+        await ContentEntity.delete(quiz.contentId);
     }
 }
 
 export const UPDATE_QUIZ = {
     type: QuizType,
     args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
-        text: { type: new GraphQLNonNull(GraphQLString) },
+        quizId: { type: new GraphQLNonNull(GraphQLID) },
+        questions: { type: new GraphQLNonNull(new GraphQLList(QuestionInputType)) },
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { id, text } = args;
-        await existText(id);
-        await TextEntity.update(id, { text: text });
-        const result = await TextEntity.findOne({ id: id });
-        return result;
+        const { quizId, questions } = args;
+        const quiz = await existQuiz(quizId);
+        // TODO: Do Update quiz
+        //await QuestionEntity.update();
+        return quiz;
     }
 }

@@ -13,7 +13,7 @@ export class TextEntity extends BaseEntity {
     @Column({ nullable: false })
     contentId!: number;
 
-    @OneToOne(type => ContentEntity, content => content.text)
+    @OneToOne(type => ContentEntity, content => content.text, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'contentId', referencedColumnName: 'id' })
     content!: ContentEntity;
 

@@ -13,7 +13,7 @@ export class LevelEntity extends BaseEntity {
     @Column({ nullable: false })
     description!: string;
 
-    @OneToMany(type => LessonEntity, lesson => lesson.level)
+    @OneToMany(type => LessonEntity, lesson => lesson.level, { onDelete: 'CASCADE' })
     lessons!: LessonEntity[];
 
 }

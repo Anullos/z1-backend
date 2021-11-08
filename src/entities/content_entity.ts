@@ -12,14 +12,14 @@ export class ContentEntity extends BaseEntity {
     @Column({ nullable: false })
     lessonId!: number;
 
-    @ManyToOne(type => LessonEntity, lesson => lesson.contents)
+    @ManyToOne(type => LessonEntity, lesson => lesson.contents, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'lessonId', referencedColumnName: 'id' })
     lesson!: LessonEntity;
 
-    @OneToOne(type => TextEntity, text => text.content)
+    @OneToOne(type => TextEntity, text => text.content, { onDelete: 'CASCADE' })
     text!: TextEntity;
 
-    @OneToOne(type => QuizEntity, quiz => quiz.content)
+    @OneToOne(type => QuizEntity, quiz => quiz.content, { onDelete: 'CASCADE' })
     quiz!: QuizEntity;
 
 

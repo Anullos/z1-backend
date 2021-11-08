@@ -4,10 +4,11 @@ import { TextEntity } from '../../entities/text_entity';
 import { TextType } from '../typedefs/text-type';
 import { ContentEntity } from '../../entities/content_entity';
 import { isProfesor } from '../../lib/tools/security';
+import { ContentType } from '../typedefs/content-type';
 
 
 export const CREATE_TEXT = {
-    type: TextType,
+    type: ContentType,
     args: {
         text: { type: new GraphQLNonNull(GraphQLString) },
         lesson_id: { type: new GraphQLNonNull(GraphQLID) },
@@ -20,8 +21,8 @@ export const CREATE_TEXT = {
         const { text, lesson_id } = args;
         await existLesson(lesson_id);
         const insertContent = await ContentEntity.insert({ lessonId: lesson_id });
-        const insert = await TextEntity.insert({ text: text, contentId: insertContent.raw.insertId });
-        const result = await TextEntity.findOne({ id: insert.raw.insertId });
+        await TextEntity.insert({ text: text, contentId: insertContent.raw.insertId });
+        const result = await ContentEntity.findOne({ relations: ['text'], where: { id: insertContent.raw.insertId } });
         return result;
     }
 }
@@ -29,16 +30,15 @@ export const CREATE_TEXT = {
 export const DELETE_TEXT = {
     type: TextType,
     args: {
-        id: { type: new GraphQLNonNull(GraphQLID) }
+        textId: { type: new GraphQLNonNull(GraphQLID) }
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { id } = args;
-        const text = await existText(id);
-        await TextEntity.delete(id);
+        const { textId } = args;
+        const text = await existText(textId);
         await ContentEntity.delete(text.contentId);
     }
 }
