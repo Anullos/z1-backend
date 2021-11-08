@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { ContentEntity } from "./content_entity";
+import { ContentLogUserEntity } from "./content_log_user";
 import { LevelEntity } from './level_entity';
 
 @Entity()
@@ -23,5 +24,8 @@ export class LessonEntity extends BaseEntity {
 
     @OneToMany(type => ContentEntity, content => content.lesson, { onDelete: 'CASCADE' })
     contents!: ContentEntity[];
+
+    @ManyToMany(type => ContentLogUserEntity, contentlog => contentlog.lesson, { onDelete: 'CASCADE' })
+    logs!: ContentLogUserEntity[];
 
 }

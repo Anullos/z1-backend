@@ -1,4 +1,4 @@
-import { GraphQLNonNull, GraphQLString, GraphQLID } from 'graphql';
+import { GraphQLNonNull, GraphQLString, GraphQLID, GraphQLInt } from 'graphql';
 import { existLesson, existText, existUser } from '../../lib/tools/checks';
 import { TextEntity } from '../../entities/text_entity';
 import { TextType } from '../typedefs/text-type';
@@ -11,15 +11,16 @@ export const CREATE_TEXT = {
     args: {
         text: { type: new GraphQLNonNull(GraphQLString) },
         lesson_id: { type: new GraphQLNonNull(GraphQLID) },
+        order: { type: new GraphQLNonNull(GraphQLInt) },
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { text, lesson_id } = args;
+        const { text, lesson_id, order } = args;
         await existLesson(lesson_id);
-        const insertContent = await ContentEntity.insert({ lessonId: lesson_id });
+        const insertContent = await ContentEntity.insert({ lessonId: lesson_id, order: order });
         await TextEntity.insert({ text: text, contentId: insertContent.raw.insertId });
         const result = await ContentEntity.findOne({ relations: ['text'], where: { id: insertContent.raw.insertId } });
         return result;

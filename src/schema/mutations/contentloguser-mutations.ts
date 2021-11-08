@@ -17,7 +17,7 @@ export const CREATE_CONTENTLOGUSER = {
         const userReq = await existUser(idParse);
         isEstudiante(userReq.role);
         const { contentId, answersUser } = args;
-        await existContent(contentId);
+        const content = await existContent(contentId);
         const content_quiz = await ContentEntity.find({ relations: ['text', 'quiz', 'quiz.questions', 'quiz.questions.answers'], where: { id: contentId } });
         if (content_quiz[0].quiz != null) {
             const questions = content_quiz[0].quiz.questions;
@@ -45,8 +45,8 @@ export const CREATE_CONTENTLOGUSER = {
                 throw new Error('The number of correct answers is not the same as the answers from user, please try again');
             }
         }
-        const insertContentLog = await ContentLogUserEntity.insert({ contentId: contentId, userId: idParse, answersUser: answersUser });
-        const result = await ContentLogUserEntity.findOne({ relations: ['user', 'content','content.text', 'content.quiz', 'content.quiz.questions', 'content.quiz.questions.answers'], where: { id: insertContentLog.raw.insertId } });
+        const insertContentLog = await ContentLogUserEntity.insert({ lessonId: content.lessonId, contentId: contentId, userId: idParse, answersUser: answersUser });
+        const result = await ContentLogUserEntity.findOne({ relations: ['user', 'lesson', 'content', 'content.text', 'content.quiz', 'content.quiz.questions', 'content.quiz.questions.answers'], where: { id: insertContentLog.raw.insertId } });
         return result;
     }
 }

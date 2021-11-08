@@ -19,7 +19,7 @@ export const GET_ANSWER_USER_FROM_CONTENT = {
         await existContent(contentId);
         await existUser(userId);
         const result = await ContentLogUserEntity.findOne({
-            relations: ['user', 'content', 'content.text', 'content.quiz', 'content.quiz.questions', 'content.quiz.questions.answers'],
+            relations: ['user', 'lesson', 'content', 'content.text', 'content.quiz', 'content.quiz.questions', 'content.quiz.questions.answers'],
             where: {
                 contentId: contentId,
                 userId: userId,

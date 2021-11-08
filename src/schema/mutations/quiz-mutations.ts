@@ -1,4 +1,4 @@
-import { GraphQLNonNull, GraphQLID, GraphQLList } from 'graphql';
+import { GraphQLNonNull, GraphQLID, GraphQLList, GraphQLInt } from 'graphql';
 import { existLesson, existQuiz, existUser } from '../../lib/tools/checks';
 import { ContentEntity } from '../../entities/content_entity';
 import { isProfesor } from '../../lib/tools/security';
@@ -16,15 +16,16 @@ export const CREATE_QUIZ = {
     args: {
         lesson_id: { type: new GraphQLNonNull(GraphQLID) },
         questions: { type: new GraphQLNonNull(new GraphQLList(QuestionInputType)) },
+        order: { type: new GraphQLNonNull(GraphQLInt) },
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { lesson_id, questions } = args;
+        const { lesson_id, questions, order } = args;
         await existLesson(lesson_id);
-        const insertContent = await ContentEntity.insert({ lessonId: lesson_id });
+        const insertContent = await ContentEntity.insert({ lessonId: lesson_id, order: order });
         const insert = await QuizEntity.insert({ contentId: insertContent.raw.insertId });
         for (const question of questions) {
             if (question.type !== "Simple" && question.type !== "Multiple" && question.type !== "Libre") {

@@ -1,8 +1,9 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
 import { existLesson, existUser } from '../../lib/tools/checks';
-import { isEstudiante, isProfesor } from '../../lib/tools/security';
+import { isEstudiante } from '../../lib/tools/security';
 import { ContentType } from '../typedefs/content-type';
 import { ContentEntity } from '../../entities/content_entity';
+import { ContentLogUserEntity } from '../../entities/content_log_user';
 
 export const GET_CONTENTS_USER = {
     type: new GraphQLList(ContentType),
@@ -13,10 +14,29 @@ export const GET_CONTENTS_USER = {
         const { user_id } = req;
         const idParse = parseInt(user_id);
         const userReq = await existUser(idParse);
-        isProfesor(userReq.role);
+        isEstudiante(userReq.role);
         const { lessonId } = args;
         await existLesson(lessonId);
         // TODO: Filter with contentLogUser too
+        const contents = await ContentEntity.find({
+            where: {
+                lessonId: lessonId,
+            },
+            order: {
+                order: 'ASC',
+            },
+        });
+        if (!contents) {
+            return [];
+        }
+        const size = contents.length;
+        const contentsLogs = await ContentLogUserEntity.find({
+            where: {
+                userId: idParse,
+                lessonId: lessonId,
+            },
+        });
+        const sizeLogs = contentsLogs.length;
         const result = await ContentEntity.find({
             relations: ['text', 'quiz', 'quiz.questions', 'quiz.questions.answers'],
             where: {
@@ -25,10 +45,8 @@ export const GET_CONTENTS_USER = {
             order: {
                 order: 'ASC',
             },
+            take: sizeLogs + 1,
         });
-        if (!result) {
-            return [];
-        }
         return result;
     }
 }

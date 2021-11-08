@@ -1,12 +1,16 @@
-import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, ManyToOne, ManyToMany } from 'typeorm';
 import { ContentEntity } from "./content_entity";
 import { UserEntity } from './user_entity';
+import { LessonEntity } from './lesson_entity';
 
 @Entity()
 export class ContentLogUserEntity extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id!: number;
+
+    @Column({ nullable: false })
+    lessonId!: number;
 
     @Column({ nullable: false })
     contentId!: number;
@@ -25,4 +29,7 @@ export class ContentLogUserEntity extends BaseEntity {
     @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
     user!: UserEntity;
 
+    @ManyToMany(type => LessonEntity, lesson => lesson.logs, { onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'lessonId', referencedColumnName: 'id' })
+    lesson!: LessonEntity;
 }

@@ -45,11 +45,31 @@ mutation{
 ------------ Lesson -----------
 
 {
-   get_all_lessons(id:3 ){
-    id
-    title
+  get_all_lessons(levelId: 3 ){
+    	id
+    	title
     description
-   }
+    contents{
+      id
+      order
+      text{
+        id
+        text
+      }
+      quiz{
+        id
+        questions{
+          id
+          question
+          type
+          answers{
+            id
+            answer
+          }
+        }
+      }
+    }
+  }
 }
 
 mutation{
