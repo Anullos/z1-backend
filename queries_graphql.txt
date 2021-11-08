@@ -145,4 +145,77 @@ mutation{
   }
 }
 
+------------ Get answer user from content -----------
 
+{
+  get_answer_user_from_content(contentId: 17, userId: 7){
+    id
+    content{
+      id
+      quiz{
+        questions{
+          question
+          type
+          answers{
+            answer
+          }
+        }
+      }
+    }
+    user{
+      name
+    }
+    answersUser
+  }
+}
+
+------------ content_log_user -----------
+
+mutation{
+  createContentLogUpser(contentId: 17, answersUser: ["solo una"]){
+    id
+    content {
+      id
+      text{
+        id
+        text
+      }
+      quiz{
+        id
+        questions{
+          id
+        }
+      }
+    }
+    user {
+      id
+      name
+    }
+    answersUser
+  }
+}
+
+mutation{
+  deleteContentLogUser(contentLogUserId: 12){
+    id
+  }
+}
+
+------------ contents -----------
+
+{
+  get_contents_user(lessonId: 8){
+    id
+      text{
+        id
+        text
+      }
+      quiz{
+        id
+        questions{
+        id
+        question
+      }
+    }
+  }
+}

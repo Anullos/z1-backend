@@ -1,6 +1,6 @@
 import { GraphQLID, GraphQLList, GraphQLNonNull } from 'graphql';
 import { existLesson, existUser } from '../../lib/tools/checks';
-import { isEstudiante } from '../../lib/tools/security';
+import { isEstudiante, isProfesor } from '../../lib/tools/security';
 import { ContentType } from '../typedefs/content-type';
 import { ContentEntity } from '../../entities/content_entity';
 
@@ -13,14 +13,17 @@ export const GET_CONTENTS_USER = {
         const { user_id } = req;
         const idParse = parseInt(user_id);
         const userReq = await existUser(idParse);
-        isEstudiante(userReq.role);
+        isProfesor(userReq.role);
         const { lessonId } = args;
         await existLesson(lessonId);
         // TODO: Filter with contentLogUser too
         const result = await ContentEntity.find({
             relations: ['text', 'quiz', 'quiz.questions', 'quiz.questions.answers'],
             where: {
-                levelId: lessonId,
+                lessonId: lessonId,
+            },
+            order: {
+                order: 'ASC',
             },
         });
         if (!result) {

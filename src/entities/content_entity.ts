@@ -13,6 +13,9 @@ export class ContentEntity extends BaseEntity {
     @Column({ nullable: false })
     lessonId!: number;
 
+    @Column({ nullable: false })
+    order!: number;
+
     @ManyToOne(type => LessonEntity, lesson => lesson.contents, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'lessonId', referencedColumnName: 'id' })
     lesson!: LessonEntity;
