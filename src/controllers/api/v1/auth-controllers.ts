@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 
 export const signup = async (req: Request, res: Response) => {
     const { name, email, password, confirm_password, role } = req.body;
+
     // check if email is valid
     if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
         return res.status(400).json({
@@ -75,6 +76,8 @@ export const signup = async (req: Request, res: Response) => {
             user: newUser,
             //token: token,
             //expiresIn: expireIn,
+            user_id: newUser?.id,
+            role: newUser?.role,
         });
     } catch (e) {
         return res.status(500).json({
