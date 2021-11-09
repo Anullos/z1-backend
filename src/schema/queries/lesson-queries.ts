@@ -31,6 +31,7 @@ export const GET_ALL_LESSONS = {
             }
             return result;
         } else {
+            // is student
             const lessons = await LessonEntity.find({
                 relations: ['contents'],
                 where: {
@@ -44,7 +45,8 @@ export const GET_ALL_LESSONS = {
                 return [];
             }
             var counter = 0;
-            var counterLastContentsLog = 0;
+            var counterLastContentsLog = 0; // counter for last contents log
+            // check if the user has already seen the lesson
             for (const lesson of lessons) {
                 const contents = await ContentEntity.find({
                     where: {
@@ -63,6 +65,7 @@ export const GET_ALL_LESSONS = {
                     break;
                 }
             }
+            // return lessons that the user has seen and not end to see
             const result = await LessonEntity.find({
                 where: {
                     levelId: levelId,
