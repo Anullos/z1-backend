@@ -13,6 +13,9 @@ export const GET_ALL_LEVELS = {
         isProfesor(userReq.role);
         const result = await LevelEntity.find({
             relations: ['lessons', 'lessons.contents', 'lessons.contents.text'],
+            order: {
+                order: 'ASC'
+            }
         }
         );
         if (!result) {

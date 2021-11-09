@@ -17,19 +17,6 @@ export const GET_CONTENTS_USER = {
         isEstudiante(userReq.role);
         const { lessonId } = args;
         await existLesson(lessonId);
-        // TODO: Filter with contentLogUser too
-        const contents = await ContentEntity.find({
-            where: {
-                lessonId: lessonId,
-            },
-            order: {
-                order: 'ASC',
-            },
-        });
-        if (!contents) {
-            return [];
-        }
-        const size = contents.length;
         const contentsLogs = await ContentLogUserEntity.find({
             where: {
                 userId: idParse,
@@ -47,6 +34,9 @@ export const GET_CONTENTS_USER = {
             },
             take: sizeLogs + 1,
         });
+        if (!result) {
+            return [];
+        }
         return result;
     }
 }

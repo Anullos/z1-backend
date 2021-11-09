@@ -13,6 +13,9 @@ export class LevelEntity extends BaseEntity {
     @Column({ nullable: false })
     description!: string;
 
+    @Column({ nullable: false })
+    order!: number;
+
     @OneToMany(type => LessonEntity, lesson => lesson.level, { onDelete: 'CASCADE' })
     lessons!: LessonEntity[];
 

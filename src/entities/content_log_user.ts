@@ -29,7 +29,7 @@ export class ContentLogUserEntity extends BaseEntity {
     @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
     user!: UserEntity;
 
-    @ManyToMany(type => LessonEntity, lesson => lesson.logs, { onDelete: 'CASCADE' })
+    @ManyToOne(type => LessonEntity, lesson => lesson.logs, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'lessonId', referencedColumnName: 'id' })
     lesson!: LessonEntity;
 }

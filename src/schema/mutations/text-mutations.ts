@@ -46,18 +46,20 @@ export const DELETE_TEXT = {
 export const UPDATE_TEXT = {
     type: TextType,
     args: {
-        id: { type: new GraphQLNonNull(GraphQLID) },
+        textId: { type: new GraphQLNonNull(GraphQLID) },
         text: { type: new GraphQLNonNull(GraphQLString) },
+        order: { type: new GraphQLNonNull(GraphQLInt) },
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { id, text } = args;
-        await existText(id);
-        await TextEntity.update(id, { text: text });
-        const result = await TextEntity.findOne({ id: id });
+        const { textId, text, order } = args;
+        const textData: TextEntity = await existText(textId);
+        await ContentEntity.update( textData.contentId, { order: order });
+        await TextEntity.update(textId, { text: text });
+        const result = await TextEntity.findOne({ id: textId });
         return result;
     }
 }

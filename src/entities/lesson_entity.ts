@@ -16,6 +16,9 @@ export class LessonEntity extends BaseEntity {
     description!: string;
 
     @Column({ nullable: false })
+    order!: number;
+
+    @Column({ nullable: false })
     levelId!: number;
 
     @ManyToOne(type => LevelEntity, level => level.lessons, { onDelete: 'CASCADE' })
@@ -25,7 +28,7 @@ export class LessonEntity extends BaseEntity {
     @OneToMany(type => ContentEntity, content => content.lesson, { onDelete: 'CASCADE' })
     contents!: ContentEntity[];
 
-    @ManyToMany(type => ContentLogUserEntity, contentlog => contentlog.lesson, { onDelete: 'CASCADE' })
+    @OneToMany(type => ContentLogUserEntity, contentlog => contentlog.lesson, { onDelete: 'CASCADE' })
     logs!: ContentLogUserEntity[];
 
 }

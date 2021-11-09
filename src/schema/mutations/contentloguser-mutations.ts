@@ -5,6 +5,7 @@ import { ContentLogUserType } from '../typedefs/contentloguser-type';
 import { ContentLogUserEntity } from '../../entities/content_log_user';
 import { ContentEntity } from '../../entities/content_entity';
 
+
 export const CREATE_CONTENTLOGUSER = {
     type: ContentLogUserType,
     args: {

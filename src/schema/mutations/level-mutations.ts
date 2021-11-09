@@ -1,4 +1,4 @@
-import { GraphQLNonNull, GraphQLString, GraphQLID } from 'graphql';
+import { GraphQLNonNull, GraphQLString, GraphQLID, GraphQLInt } from 'graphql';
 import { LevelType } from '../typedefs/level-type';
 import { LevelEntity } from '../../entities/level_entity';
 import { existLevel, existUser } from '../../lib/tools/checks';
@@ -10,14 +10,15 @@ export const CREATE_LEVEL = {
     args: {
         title: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
+        order: { type: new GraphQLNonNull(GraphQLInt) },
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { title, description } = args;
-        const insertLevel = await LevelEntity.insert({ title: title, description: description });
+        const { title, description, order } = args;
+        const insertLevel = await LevelEntity.insert({ title: title, description: description, order: order });
         const level = await LevelEntity.findOne({ id: insertLevel.raw.insertId });
         return level;
     }
@@ -45,15 +46,16 @@ export const UPDATE_LEVEL = {
         id: { type: new GraphQLNonNull(GraphQLID) },
         title: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
+        order: { type: new GraphQLNonNull(GraphQLInt) },
     },
     async resolve(req: any, args: any) {
         const { user_id } = req;
         const userId = parseInt(user_id);
         const userReq = await existUser(userId);
         isProfesor(userReq.role);
-        const { id, title, description } = args;
+        const { id, title, description, order } = args;
         await existLevel(id);
-        await LevelEntity.update(id, { title: title, description: description });
+        await LevelEntity.update(id, { title: title, description: description, order: order });
         const result = await LevelEntity.findOne({ id: id });
         return result;
     }
