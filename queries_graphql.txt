@@ -137,7 +137,7 @@ mutation{
     {
       question:"Como se usa esto?",
       type:"Simple",
-      answers: ["solo una", "documentandose", "preguntando"],
+      answers: ["*solo una", "documentandose", "preguntando"],
     }
   ]){
     id
