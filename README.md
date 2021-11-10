@@ -7,7 +7,7 @@
 
 
 ### Documentacion
-Crea un archivo en la raiz del proyecto ".env" con la siguiente estructura:<br />
+Crea un archivo en la raiz del proyecto ".env" con la siguiente estructura y cambia los valores por los suyos:<br />
 
 ```
 DB_HOSTNAME=localhost
